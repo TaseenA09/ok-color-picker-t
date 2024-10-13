@@ -36,7 +36,25 @@ function handleFocus(e: Event) {
   }
 }
 
+let hexInputCache: string | null;
+
+function updateHexInputCache(): boolean {
+  if (hexInputCache == hexInputEl.value) {
+    return true
+  } else if(hexInputCache == null) {
+    hexInputCache = hexInputEl.value
+    return true
+  }
+
+  hexInputCache = hexInputEl.value
+  return false
+}
+
 function handleInput(e: Event) {
+  if (updateHexInputCache() == true) {
+    return
+  }
+
   const el = <HTMLInputElement>e.target;
   let hex = getHexTokensFromString(el.value);
 
